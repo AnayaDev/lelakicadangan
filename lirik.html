@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <title>Karaoke - Lelaki Cadangan</title>
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      height: 100vh;
+      font-family: 'Segoe UI', sans-serif;
+      overflow: hidden;
+      background: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.8)),
+                  url('https://images.unsplash.com/photo-1608889177443-5d1a6c54f5f1?auto=format&fit=crop&w=1500&q=80') no-repeat center center fixed;
+      background-size: cover;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .container {
+      background-color: rgba(255, 255, 255, 0.85);
+      padding: 40px;
+      border-radius: 20px;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+      text-align: left;
+      width: 90%;
+      max-width: 600px;
+    }
+
+    .header {
+      display: flex;
+      align-items: center;
+      gap: 15px;
+      margin-bottom: 20px;
+    }
+
+    .thumbnail {
+      width: 60px;
+      height: 60px;
+      border-radius: 12px;
+      object-fit: cover;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+    }
+
+    .title {
+      font-family: 'Georgia', serif;
+      font-size: 1.7em;
+      font-weight: bold;
+      color: #333;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+    }
+
+    #lyrics {
+      font-size: 1.4em;
+      font-weight: 500;
+      color: #444;
+      opacity: 0;
+      transform: translateY(20px);
+      animation: fadeSlide 1s ease forwards;
+    }
+
+    @keyframes fadeSlide {
+      from {
+        opacity: 0;
+        transform: translateY(30px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    video {
+      margin-top: 30px;
+      width: 100%;
+      height: 50px;
+      outline: none;
+      border-radius: 8px;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="header">
+      <img src="https://files.catbox.moe/0nbvgk.jpeg" alt="Thumbnail" class="thumbnail">
+      <div class="title">Lelaki Cadangan</div>
+    </div>
+    <p id="lyrics">Play Sound...</p>
+    <video id="music" src="https://files.catbox.moe/ukp53i.mpeg" controls autoplay></video>
+  </div>
+
+  <script>
+    const lyrics = [
+      ["This website was created by Anaya Official ", 5000],
+      ["Kutuliskan sebuah cerita cinta segitiga", 5000],
+      ["Di mana akulah yang jadi peran utama", 5000],
+      ["Aku tak dapat membohongi segala rasa", 5000],
+      ["Aku mencintai dia dan dirinya", 5000],
+      ["Nanti pukul satu dia menemui aku", 4000],
+      ["Maka jangan kamu pasang wajah yang cemburu", 5000],
+      ["Nanti bila dia datang menemui aku", 5000],
+      ["Maka cepat-cepat kamu ngumpet dulu", 5000],
+      ["Dan aku sudah pernah bilang", 4000],
+      ["Pacarku bukan cuma kamu saja", 5000],
+      ["Ku mempunyai dua hati", 3000],
+      ["Yang tak bisa untuk kutinggali", 5000],
+      ["Kan aku sudah pernah bilang", 5000],
+      ["Janganlah kamu terlalu sayang", 5000],
+      ["Dan bila nanti kau menghilang", 5000],
+      ["Ku masih punya lelaki cadangan", 5000]
+    ];
+
+    const lyricElement = document.getElementById("lyrics");
+    const music = document.getElementById("music");
+    let index = 0;
+
+    function showNextLyric() {
+      if (index < lyrics.length) {
+        lyricElement.style.opacity = "0";
+        lyricElement.style.animation = "none";
+        void lyricElement.offsetWidth;
+
+        lyricElement.textContent = lyrics[index][0];
+        lyricElement.style.animation = "fadeSlide 1s ease forwards";
+
+        setTimeout(showNextLyric, lyrics[index][1]);
+        index++;
+      } else {
+        lyricElement.textContent = "Thanks You";
+      }
+    }
+
+    music.addEventListener("play", () => {
+      if (index === 0) {
+        showNextLyric();
+      }
+    });
+  </script>
+</body>
+</html>
