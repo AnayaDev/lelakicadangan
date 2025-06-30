@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <title>Karaoke - Lelaki Cadangan</title>
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      height: 100vh;
+      background: linear-gradient(135deg, #fbc2eb 0%, #a6c1ee 100%);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      font-family: 'Segoe UI', sans-serif;
+      overflow: hidden;
+    }
+
+    .container {
+      background-color: rgba(255, 255, 255, 0.95);
+      padding: 50px;
+      border-radius: 20px;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.25);
+      text-align: center;
+      width: 90%;
+      max-width: 600px;
+    }
+
+    h2 {
+      margin-top: 0;
+      font-size: 1.8em;
+      color: #333;
+      letter-spacing: 1px;
+    }
+
+    #lyrics {
+      font-size: 1.5em;
+      font-weight: 500;
+      color: #444;
+      opacity: 0;
+      transform: translateY(20px);
+      animation: fadeSlide 1s ease forwards;
+    }
+
+    @keyframes fadeSlide {
+      from {
+        opacity: 0;
+        transform: translateY(30px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    video {
+      margin-top: 30px;
+      width: 100%;
+      height: 50px;
+      outline: none;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h2>🎶 Lelaki Cadangan 🎶</h2>
+    <p id="lyrics">Menunggu dimulai...</p>
+    <video id="music" src="https://files.catbox.moe/755b4d.mp3" controls autoplay></video>
+  </div>
+
+  <script>
+    const lyrics = [
+      ["Kutuliskan sebuah cerita cinta segitiga", 4000],
+      ["Di mana akulah yang jadi peran utama", 4000],
+      ["Aku tak dapat membohongi segala rasa", 4000],
+      ["Aku mencintai dia dan dirinya", 4000],
+      ["Nanti pukul satu dia menemui aku", 4000],
+      ["Maka jangan kamu pasang wajah yang cemburu", 4000],
+      ["Nanti bila dia datang menemui aku", 4000],
+      ["Maka cepat-cepat kamu ngumpet dulu", 4000],
+      ["Dan aku sudah pernah bilang", 3000],
+      ["Pacarku bukan cuma kamu saja", 4000],
+      ["Ku mempunyai dua hati", 3000],
+      ["Yang tak bisa untuk kutinggali", 4000],
+      ["Kan aku sudah pernah bilang", 3000],
+      ["Janganlah kamu terlalu sayang", 4000],
+      ["Dan bila nanti kau menghilang", 3000],
+      ["Ku masih punya lelaki cadangan", 4000]
+    ];
+
+    const lyricElement = document.getElementById("lyrics");
+    const music = document.getElementById("music");
+    let index = 0;
+
+    function showNextLyric() {
+      if (index < lyrics.length) {
+        lyricElement.style.opacity = "0";
+        lyricElement.style.animation = "none";
+        void lyricElement.offsetWidth;
+
+        lyricElement.textContent = lyrics[index][0];
+        lyricElement.style.animation = "fadeSlide 1s ease forwards";
+
+        setTimeout(showNextLyric, lyrics[index][1]);
+        index++;
+      } else {
+        lyricElement.textContent = "🎵 Tamat. Terima kasih sudah bernyanyi!";
+      }
+    }
+
+    music.addEventListener("play", () => {
+      if (index === 0) {
+        showNextLyric();
+      }
+    });
+  </script>
+</body>
+</html>
